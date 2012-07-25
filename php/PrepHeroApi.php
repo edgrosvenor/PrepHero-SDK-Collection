@@ -67,7 +67,7 @@ class PrepHeroApi{
         $response = $this->client->getAccessToken($this->token_endpoint, 'authorization_code', $params);
         if(!isset($response['result']['error'])){
             $this->access_token = $response['result']['access_token'];
-            setcookie('prephero_refresh_token',  $response['result']['refresh_token']);
+            $_COOKIE['prephero_refresh_token'] =  $response['result']['refresh_token'];
         }
         return $response;
     }
@@ -77,12 +77,21 @@ class PrepHeroApi{
         $params = array('refresh_token' => $_COOKIE['prephero_refresh_token']);
         $response = $this->client->getAccessToken($this->token_endpoint, 'refresh_token', $params);
         print_r($response);
-        $this->access_token = $response['access_token'];
+        $this->access_token = $response['refresh_token'];
     }
     
     public function fetch($method, $secretresource = null){
 		$this->client->setAccessToken($this->access_token);
         $response = $this->client->fetch($this->base_url.'&theme=raw&method='.$method.'&return='.$this->returntype);
+		print_r($response);
+		print_r($_COOKIE);
+
+        if(isset($response['result']['error']) && strcmp ( trim($response['result']['error']), trim('invalid_grant') ) == 0){
+            echo "get refresh token";
+			self::getAccessTokenByRefreshToken();
+            $response = $this->client->fetch($this->base_url.'&theme=raw&method='.$method.'&return='.$this->returntype);
+			print_r($response);			
+        }
         return $response;
     }
     
