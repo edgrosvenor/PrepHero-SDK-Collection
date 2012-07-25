@@ -69,16 +69,15 @@ class PrepHeroApi{
             $this->access_token = $response['result']['access_token'];
             setcookie('prephero_refresh_token',  $response['result']['refresh_token']);
         }
-        else{
-            if($response['result']['error'] == "invalid_grant"){
-                // get another token
-                $params = array('refresh_token' => $_COOKIE['prephero_refresh_token']);
-                $response = $this->client->getAccessToken($this->token_endpoint, 'refresh_token', $params);
-                print_r($response);
-                $this->access_token = $response['refresh_token'];
-            }
-        }
         return $response;
+    }
+    
+    public function getAccessTokenByRefreshToken(){
+        // get another token
+        $params = array('refresh_token' => $_COOKIE['prephero_refresh_token']);
+        $response = $this->client->getAccessToken($this->token_endpoint, 'refresh_token', $params);
+        print_r($response);
+        $this->access_token = $response['access_token'];
     }
     
     public function fetch($method, $secretresource = null){
