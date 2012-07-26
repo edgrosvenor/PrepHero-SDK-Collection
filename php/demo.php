@@ -15,7 +15,7 @@ $api = new PrepHeroApi();
         echo "<pre>";
         var_dump($response);
 		echo "</pre>";
-		for ($i=0;$i<20;$i++){
+		for ($i=0;$i<15;$i++){
 			$response = $api->getProfile();
 			echo "<pre>";
 	        var_dump($response);

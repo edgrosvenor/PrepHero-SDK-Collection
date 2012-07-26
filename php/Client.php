@@ -214,7 +214,7 @@ class Client
         }
         $grantTypeObject = new $grantTypeClass();
         $grantTypeObject->validateParameters($parameters);
-		print_r($parameters);
+		
         if (!defined($grantTypeClass . '::GRANT_TYPE')) {
             throw new Exception('Unknown constant GRANT_TYPE for class ' . $grantTypeClassName, Exception::GRANT_TYPE_ERROR);
         }

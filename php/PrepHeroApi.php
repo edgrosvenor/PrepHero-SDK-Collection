@@ -92,7 +92,7 @@ class PrepHeroApi{
 	        $response = $this->client->getAccessToken($this->token_endpoint, 'refresh_token', $params);
 			
 	        $this->access_token = $response['result']['access_token'];
-			
+			$this->client->setAccessToken($this->access_token);
             $response = $this->client->fetch($this->base_url.'&theme=raw&method='.$method.'&return='.$this->returntype);
 			return $response;
 						
