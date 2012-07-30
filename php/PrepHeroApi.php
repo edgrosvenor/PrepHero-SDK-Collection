@@ -103,6 +103,10 @@ class PrepHeroApi{
     public function getProfile(){
         return self::fetch('accessresources', null);
     }
+
+	public function revokeAccess(){
+		return self::fetch('revokeaccess', null);
+	}
     
     
 }          

@@ -15,13 +15,17 @@ $api = new PrepHeroApi();
         echo "<pre>";
         var_dump($response);
 		echo "</pre>";
-		for ($i=0;$i<15;$i++){
+		for ($i=0;$i<1;$i++){
 			$response = $api->getProfile();
 			echo "<pre>";
 	        var_dump($response);
 			echo "</pre>";
 			sleep(1);
 		}
+		$response = $api->revokeAccess();
+		echo "<pre>";
+        var_dump($response);
+		echo "</pre>";
         
     }
 
