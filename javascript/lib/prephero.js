@@ -20,7 +20,7 @@
 	       });
 	     },
 	     
-	     clearTokens: function() {
+	   clearTokens: function() {
     	     oauth2.clearAllTokens;
     	     accesstoken='';
     	   },
@@ -37,14 +37,30 @@
 	                    user    =   resp;
 	                    console.log(user);
 	                },
-					error: function(jqXHR, textStatus, errorThrown){
+			error: function(jqXHR, textStatus, errorThrown){
 						console.log(jqXHR);
 						console.log(textStatus);
 						console.log(errorThrown);
 					},
 	                dataType: "jsonp"
 	            });
-	        }
+	        },
+	revokeAccess: function() {
+		$.ajax({
+			url: 'https://dev.prephero.com/PrepHero/v1?method=revokeaccess&return=json&access_token=' + accesstoken,
+			data:null,
+			success: function(resp) {
+				prephero.clearTokens();
+				console.log(resp);
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+						console.log(jqXHR);
+						console.log(textStatus);
+						console.log(errorThrown);
+					},
+			dataType: "jsonp"
+		})
+	}
     }; 
     window.prephero = prephero;
 })();
