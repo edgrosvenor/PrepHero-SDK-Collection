@@ -22,6 +22,9 @@
 	     
 	   clearTokens: function() {
     	     oauth2.clearAllTokens;
+	     if(typeof(window.localStorage) != 'undefined'){ 
+				valoutput = window.localStorage.removeItem('gwt-oauth2'); 
+			}
     	     accesstoken='';
     	   },
     
