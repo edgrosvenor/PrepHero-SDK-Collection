@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>JSO Demo</title>
+	<title>PrepHero Demo</title>
 
 	<!-- All JavaScript at the bottom, except this Modernizr build.
 			 Modernizr enables HTML5 elements & feature detects for optimal performance.
@@ -14,7 +14,7 @@
 	<script src="js/libs/localstorage.js"></script>
 	<script src="js/libs/modernizr-2.5.3.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-
+	<script src="../lib/prephero.js"></script>
 	<script src="../jso.js"></script>
 	<script type="text/javascript">
 	/*	$(document).ready(function() {
@@ -83,7 +83,7 @@
 	<script type="text/javascript">
 	   ////////////////////////////////////////////////////////////////////////////
 	   // AUTHENTICATING WITH GOOGLE //////////////////////////////////////////////
-	  var accesstoken = ""; ////////////////////////////////////////////////////////////////////////////
+	  /*var accesstoken = ""; ////////////////////////////////////////////////////////////////////////////
 	   (function() {
 	     var GOOGLE_AUTH_URL = "https://dev.prephero.com/PrepHero/v1?method=authorize&return=json";
 	     var GOOGLE_CLIENT_ID = "testjs";
@@ -129,9 +129,10 @@
 					},
 	                dataType: "jsonp"
 	            });
-	        }
+	        }*/
+	        
 	  </script>
-
+<button type='button' onclick="prephero.authenticate();">Authenticate with PrepHero</button>
 
 </body>
 </html>

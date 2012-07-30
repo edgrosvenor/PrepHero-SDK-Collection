@@ -1,2 +1,5 @@
 == 2012.07.18 ==
 * Start PrepHero PHP API toolkit for clients
+
+== 2012.07.30
+* Built basic structure for php and javascript sdk
