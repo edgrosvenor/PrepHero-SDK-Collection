@@ -1,4 +1,4 @@
-<?php header('Access-Control-Allow-Origin: *'); header('Access-Control-Allow-Headers: Content-Type'); ?>
+<?php header('Access-Control-Allow-Origin: *'); ?>
 <html>
 <head>
 	<meta charset="utf-8">
@@ -8,7 +8,7 @@
 	<!-- All JavaScript at the bottom, except this Modernizr build.
 			 Modernizr enables HTML5 elements & feature detects for optimal performance.
 			 Create your own custom Modernizr build: www.modernizr.com/download/ -->
-
+ 	<script type="text/javascript" src="gwt-oauth2.js"></script>
 	<script src="js/libs/json2.js"></script>
 	<!-- https://github.com/wojodesign/local-storage-js -->
 	<script src="js/libs/localstorage.js"></script>
@@ -17,7 +17,7 @@
 
 	<script src="../jso.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
+	/*	$(document).ready(function() {
 
 
 			// Add configuration for one or more providers.
@@ -75,12 +75,62 @@
 
 			// jso_wipe();
 
-		});
+		});*/
 	</script>
 
 </head>
 <body>
+	<script type="text/javascript">
+	   ////////////////////////////////////////////////////////////////////////////
+	   // AUTHENTICATING WITH GOOGLE //////////////////////////////////////////////
+	  var accesstoken = ""; ////////////////////////////////////////////////////////////////////////////
+	   (function() {
+	     var GOOGLE_AUTH_URL = "https://dev.prephero.com/PrepHero/v1?method=authorize&return=json";
+	     var GOOGLE_CLIENT_ID = "testjs";
+	     var PLUS_ME_SCOPE = "https://www.googleapis.com/auth/plus.me";
 
+	     var button = document.createElement("button");
+	     button.innerText = "Authenticate with PrepHero";
+	     button.onclick = function() {
+	       var req = {
+	         "authUrl" : GOOGLE_AUTH_URL,
+	         "clientId" : GOOGLE_CLIENT_ID,
+	         "scopes" : [],
+	       };
+	       oauth2.login(req, function(token) {
+	         console.log("Got an OAuth token:\n" + token + "\n"
+	             + "Token expires in " + oauth2.expiresIn(req) + " ms\n");
+			accesstoken = token;
+			getUserInfo();
+	       }, function(error) {
+	         alert("Error:\n" + error);
+	       });
+	     };
+	     document.body.appendChild(button);
+
+	     var clearTokens = document.createElement("button");
+	     clearTokens.innerText = "Clear all tokens";
+	     clearTokens.onclick = oauth2.clearAllTokens;
+	     document.body.appendChild(clearTokens);
+	   })();
+	
+	function getUserInfo() {
+	            $.ajax({
+	                url: 'https://dev.prephero.com/PrepHero/v1?method=accessresources&return=json&access_token=' + accesstoken,
+	                data: null,
+	                success: function(resp) {
+	                    user    =   resp;
+	                    console.log(user);
+	                },
+					error: function(jqXHR, textStatus, errorThrown){
+						console.log(jqXHR);
+						console.log(textStatus);
+						console.log(errorThrown);
+					},
+	                dataType: "jsonp"
+	            });
+	        }
+	  </script>
 
 
 </body>
